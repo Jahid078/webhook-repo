@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Webhook Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        async function fetchLogs() {
+            const response = await fetch('/logs');
+            const logs = await response.json();
+            const container = document.getElementById("logs");
+            container.innerHTML = "";
+            logs.forEach(log => {
+                const p = document.createElement("p");
+                p.textContent = log;
+                container.appendChild(p);
+            });
+        }
+
+        setInterval(fetchLogs, 15000);
+        window.onload = fetchLogs;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Event Logs</h1>
+        <div id="logs"></div>
+    </div>
+</body>
+</html>
